@@ -17,6 +17,11 @@ class BankCard:
             card.add_money(num)
 
 
+"""
+字典  列表   对象
+"""
+
+
 # 多继承
 # 线程 进程 协程
 class Emp:
@@ -29,11 +34,19 @@ class Emp:
 
 
 class Company:
+    """
+
+    """
+
     def __init__(self, name, dept_dict):
         #  公司的名称
         self.name = name
         # 部门的字典 {'技术部':[emp,emp],'公关部':[emp,emp]}
         self.dept_dict = dept_dict
+
+    """
+    模仿  --- 写简单的案例 ----   复杂程序
+    """
 
     def add_emp(self, emp):
         """
@@ -45,24 +58,42 @@ class Company:
         """
         # [[emp,emp],[emp,emp]]
         if self.dept_dict:
-            dept_values = self.dept_dict.vaules()
-            for emp_list in dept_values:
-                # 获取部门中的员工信息
-                for temp_emp in emp_list:
-                    # 如果员工入职时间跟员工名称不同时存在,添加员工的操作
-                    if not (temp_emp.name == emp.name and temp_emp.hiredate == emp.hiredate):
-                        # 字段 in 用法 默认是 判断key是否存在
-                        if emp.dept_name in self.dept_dict:
-                            emps = self.dept_dict.get(emp.dept_name)
-                            emps.append(emp)
-                        else:
-                            self.dept_dict[emp.dept_name] = [emp]
+            # 如果员工存在则直接返回
+            if self.is_exist(emp):
+                return
+            # 如果所在部门存在 则直接添加员工到列表
+            if emp.dept_name in self.dept_dict:
+                #  通过key获取字典员工列表
+                emps = self.dept_dict.get(emp.dept_name)
+                # 将员工添加到列表中
+                emps.append(emp)
+            else:
+                # 如果部门不存在 则直接添加部门和员工
+                self.dept_dict[emp.dept_name] = [emp]
+                # 如果添加完成,就终止循环,结束方法
         else:
             # 如果公司没有任何员工
             self.dept_dict[emp.dept_name] = [emp]
 
     def show_company(self):
         pass
+
+    def is_exist(self, emp):
+        """
+        用于判断员工是否存在,
+        :return: 如果返回True 表示员工存在,则无需添加员工, 如果返回False 表示员工不存在
+        """
+        # 获取部门字典中所有的员工列表
+        dept_values = self.dept_dict.values()
+        for emp_list in dept_values:
+            # 获取部门中的员工信息
+            for temp_emp in emp_list:
+                # 如果员工入职时间跟员工名称不同时存在,添加员工的操作
+                if temp_emp.name == emp.name and temp_emp.hiredate == emp.hiredate:
+                    print('员工的信息已录入,不能添加')
+                    #
+                    return True
+        return False
 
 
 # 测试银行转账
@@ -77,7 +108,7 @@ def test_bank_card():
 def test_company():
     # 创建员工
     zuo = Emp(name='左勇杰', dept_name='舔狗部', hiredate='2019-08-05')
-    ma = Emp(name='马化腾', dept_name='酱油部', hiredate='2019-08-05')
+    ma = Emp(name='左勇杰', dept_name='舔狗部', hiredate='2019-08-05')
     zhao = Emp(name='赵丽颖', dept_name='影视部', hiredate='2019-08-05')
     wang = Emp(name='王凡', dept_name='公关部', hiredate='2019-08-05')
 
