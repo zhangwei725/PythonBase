@@ -19,7 +19,7 @@ def copy_text_file():
 # 读写 一体  with open() as  file ,  open() as f,
 # 注意: 读写的文件对象写在一行
 #       使用了相对路径 默认如果没有没有盘符就直接在当前模块下面找文件
-#
+
 def copy_img_file():
     with open('55.jpg', mode='rb') as read_img_file, \
             open('imgs/new_55.jpg', mode='wb') as new_img:
@@ -64,7 +64,8 @@ def copy_image():
     new_image_file = os.path.join(IMAGE_DIR, file_name)
     with open(img_path, mode='rb') as old_image, open(new_image_file, mode='wb') as new_img:
         new_img.write(old_image.read())
-        
+
+
 
 # 通过路径获取文件的名称
 def get_file_name(img_path):
