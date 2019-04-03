@@ -11,7 +11,7 @@
 """
 
 
-def outer(username, password):
+def outer(username=None, password=None):
     def wrapper(func):
         def inner(*args, **kwargs):
             result = func()
@@ -25,6 +25,12 @@ def outer(username, password):
 @outer(username='admin', password='123456')
 def test():
     print('核心函数装饰器svip版')
+
+
+class A:
+    @outer
+    def test(self):
+        pass
 
 
 if __name__ == '__main__':
